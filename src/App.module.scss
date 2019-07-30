@@ -1,16 +1,16 @@
 @import "styles/colours.scss";
 
-.App {
+.app {
   text-align: center;
 }
 
-.App-logo {
+.logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
   pointer-events: none;
 }
 
-.App-header {
+.header {
   background-color: $background-color;
   min-height: 100vh;
   display: flex;
@@ -19,10 +19,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: $body-text-color;
-}
-
-.App-link {
-  color: $link-color;
 }
 
 @keyframes App-logo-spin {
