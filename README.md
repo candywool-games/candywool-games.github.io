@@ -44,11 +44,11 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 
-##[React Bootstrap](https://react-bootstrap.netlify.com/)
+## [React Bootstrap](https://react-bootstrap.netlify.com/)
 
 This project has React bootstrap installed for convenience.
 
-##Sass Modules
+## Sass Modules
 
 This project uses Sass modules for its CSS.
 
