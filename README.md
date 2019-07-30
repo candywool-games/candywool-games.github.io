@@ -42,3 +42,14 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+##[React Bootstrap](https://react-bootstrap.netlify.com/)
+
+This project has React bootstrap installed for convenience.
+
+##Sass Modules
+
+This project uses Sass modules for its CSS. Site wide variables can be added/modified in `src/styles/colours.scss`. Global CSS classes can be added to `src/index.scss`. All component specific CSS should be added at the same level as the `index.tsx` for that component in a file called `index.module.scss`.
+
+The full list of bootstrap variables can be found [here](https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss).

@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import styles from './App.module.scss';
+import { Button } from 'react-bootstrap';
 
 const App: React.FC = () => {
   return (
@@ -11,13 +12,13 @@ const App: React.FC = () => {
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <a
-          className="link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
         </a>
+        <Button variant="success">Success</Button>
       </header>
     </div>
   );

@@ -9,11 +9,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.link {
-  color: $link-color;
-}
+//Import bootstrap css defaults - this should be the final line of the file
+@import '~bootstrap/scss/bootstrap.scss';
+//<-----------DON'T PUT ANYTHING UNDER THIS----------->
