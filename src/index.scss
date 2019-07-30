@@ -9,6 +9,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+//Import bootstrap overrides here
+@import "styles/bootstrap-overrides.scss";
 //Import bootstrap css defaults - this should be the final line of the file
 @import '~bootstrap/scss/bootstrap.scss';
 //<-----------DON'T PUT ANYTHING UNDER THIS----------->
