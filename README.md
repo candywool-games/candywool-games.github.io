@@ -52,13 +52,13 @@ This project has React bootstrap installed for convenience.
 
 This project uses Sass modules for its CSS.
 
-### [colours.scss](src/styles/colours.scss)
+### [variables.scss](src/styles/variables.scss)
 
- Site wide colour variables can be added/modified in `src/styles/colours.scss`.
+You can add your own global variables in `src/styles/variables.scss`.
 
 ### [bootstrap-overrides.scss](src/styles/bootstrap-overrides.scss)
 
-You can override the bootsrap defaults by adding them to `src/styles/bootstrap-overrides.scss`. The full list of bootstrap variables can be found [here](https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss).
+You can override the bootstrap defaults by adding them to `src/styles/bootstrap-overrides.scss`. The full list of bootstrap variables can be found [here](https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss).
 
 ### [index.scss](src/index.scss)
 
@@ -66,5 +66,5 @@ You can override the bootsrap defaults by adding them to `src/styles/bootstrap-o
  
 ### Component Modules
  
-All component specific CSS should be added at the same level as the `index.tsx` for that component in a file called `index.module.scss`. Inside of `index.tsx` you will need to add `import styles from './index.module.scss';` at the top. To use your module class, you just add `className={styles.yourClass}`;
+All component specific CSS should be added at the same level as the `index.tsx` for that component in a file called `index.module.scss`. Inside of `index.tsx` you will need to add `import styles from './index.module.scss';` at the top. To use your module class, you just add `className={styles.yourClass}`; If you want to use global variables from `variables.scss` in your new module, you just need to add `@import "styles/variables.scss";` to the top of `index.module.scss`.
 
