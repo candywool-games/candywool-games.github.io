@@ -6,8 +6,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-//Import bootstrap overrides here
-@import "styles/bootstrap-overrides.scss";
+.blockquote {
+  background: $body-bg-dark;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
 //Import bootstrap css defaults - this should be the final line of the file
 @import '~bootstrap/scss/bootstrap.scss';
 //<-----------DON'T PUT ANYTHING UNDER THIS----------->
