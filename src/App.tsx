@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import styles from './App.module.scss';
-import BlogHome from './components/Blog/BlogHome/index';
+import BlogHome from './components/Blog/BlogHome';
 
 const App: React.FC = () => {
   return (
