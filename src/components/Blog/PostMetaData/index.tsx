@@ -39,8 +39,7 @@ export default class PostMetaData extends Component<IPostMetaDataProps, {}> {
         );
     }
     
-    renderAvatar(image: IImage){
-        console.log(image.url);
+    renderAvatar(image: IImage) {
         if(image.url){
             return (
                 <Image 
