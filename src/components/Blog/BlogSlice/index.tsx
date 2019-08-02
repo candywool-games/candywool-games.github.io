@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import styles from './index.module.scss';
 import BlogImage from "../BlogImage";
 import BlogEmbed from "../BlogEmbed";
 import { RichText } from "../../../prismic-types";
@@ -29,7 +30,9 @@ export default class BlogSlice extends Component<IBlogSliceProps, {}> {
         }
 
         return (
-            <RichText render={text} />
+            <div className={styles.blogText}>
+                <RichText  render={text} />
+            </div>
         );
     }
 
