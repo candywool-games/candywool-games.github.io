@@ -1,5 +1,5 @@
 import { prismicClient } from '../../utilities/prismic-configuration';
-import Prismic from 'prismic-javascript'
+import Prismic from 'prismic-javascript';
 import IBlogPost from '../../models/blog_post';
 
 interface IGetBlogPostsResponse {
