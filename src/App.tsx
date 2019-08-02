@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import styles from './App.module.scss';
-import { Button } from 'react-bootstrap';
+import BlogHome from './components/Blog/BlogHome/index';
 
 const App: React.FC = () => {
   return (
     <div className={styles.app}>
-      <header className={styles.header}>
+      {/* <header className={styles.header}>
         <img src={logo} className={styles.logo} alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -19,7 +19,8 @@ const App: React.FC = () => {
           Learn React
         </a>
         <Button variant="success">Success</Button>
-      </header>
+      </header> */}
+      <BlogHome />
     </div>
   );
 }

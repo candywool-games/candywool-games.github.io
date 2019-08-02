@@ -1,7 +1,10 @@
 @import "styles/variables.scss";
 
 .app {
-  text-align: center;
+  margin: auto;
+  text-align: justify;
+  max-width: 900px;
+  padding: 20px;
 }
 
 .logo {
