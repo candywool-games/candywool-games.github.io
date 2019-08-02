@@ -1,9 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Alegreya|Lora&display=swap');
 
 //Can override bootstrap default variables
+
+//Colour Scheme
+//$primary:       $blue !default;
+//$secondary:     $gray-600 !default;
+//$success:       $green !default;
+//$info:          $cyan !default;
+//$warning:       $yellow !default;
+//$danger:        $red !default;
+//$light:         $gray-100 !default;
+//$dark:          $gray-800 !default;
 $body-bg: white;
 $body-color: #282c34;
-$link-color: #61dafb;
 
 $font-family-serif: 'Lora', serif;
 $font-family-base: $font-family-serif;
