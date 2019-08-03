@@ -6,7 +6,7 @@ export default class SiteLayout extends Component {
         return (
             <div>
                 <div className={styles.header}>
-                    Oiseau
+                    
                 </div>
                 <div className={styles.contentWrapper}>
                     {this.props.children}
