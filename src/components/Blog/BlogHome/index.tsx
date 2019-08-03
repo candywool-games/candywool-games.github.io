@@ -120,22 +120,20 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
     renderControls() {
         const pagination = 
             <PageNumbers 
-                className={styles.pageNumbers}
                 totalPages={this.state.totalPages} 
                 currentPage={this.state.currentPage} 
                 onUpdatePageNumber={this.onUpdatePageNumber}
             />
 
         const postsPerPage =
-            <span className={styles.postsPerPage}>
-                <NumberDropdown 
-                    currentSelected={this.state.postsToDisplay} 
-                    options={[1, 10, 20, 50, 100]} 
-                    onChange={this.onUpdatePostsPerPage} />
-            </span>
+            <NumberDropdown 
+                currentSelected={this.state.postsToDisplay} 
+                options={[1, 10, 20, 50, 100]} 
+                onChange={this.onUpdatePostsPerPage} 
+            />
 
         return (
-            <div>
+            <div className={styles.controls}>
                 {pagination}
                 {postsPerPage}
             </div>
