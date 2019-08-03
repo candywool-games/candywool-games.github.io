@@ -82,11 +82,11 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
         var controls = this.renderControls();
 
         return (
-            <div>
+            <>
                 {controls}
                 {this.state.blogPosts.map(this.renderBlogPost, this)}
                 {controls}
-            </div>
+            </>
         );
     }
 
