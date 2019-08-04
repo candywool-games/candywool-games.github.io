@@ -1,19 +1,22 @@
-orbs:
-  react: thefrontside/react@0.2.0
-version: 2.1
+version: 2
+jobs:
+  deploy-website:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:8.11.1
+
+    steps:
+      - checkout
+      - run:
+          name: Deploying to GitHub Pages
+          command: |
+            npm install && npm run predeploy && npm run deploy
+            # git config --global user.email "Danielw093@users.noreply.github.com"
+            # git config --global user.name "Daniel Williams"
+            # echo "machine github.com login Danielw093 password $GITHUB_TOKEN" > ~/.netrc
+            # cd website && yarn install && GIT_USER=Danielw093 yarn run publish-gh-pages
 workflows:
-  push:
+  version: 2
+  build_and_deploy:
     jobs:
-      - react/install
-      - react/eslint:
-          requires:
-            - react/install
-      - react/stylelint:
-          requires:
-            - react/install
-      - react/test:
-          requires:
-            - react/install
-      - react/coverage:
-          requires:
-            - react/install
+      - deploy-website
