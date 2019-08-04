@@ -4,6 +4,9 @@ orbs:
 version: 2.1
 jobs:
   deploy:
+    filters: 
+      branches:
+        only: master
     steps:
       - react/install
       - react/eslint:
@@ -21,6 +24,3 @@ workflows:
   build_and_deploy:
     jobs:
       - deploy
-          filters: 
-            branches:
-              only: master
