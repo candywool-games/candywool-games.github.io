@@ -13,7 +13,8 @@ jobs:
     steps:
       - react/install
           filters: 
-            branches: *filter-only-master
+            branches: 
+              *filter-only-master
       - react/eslint:
           requires:
             - react/install
