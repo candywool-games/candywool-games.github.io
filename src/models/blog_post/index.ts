@@ -1,4 +1,5 @@
 import IImage from "../image";
+import IAuthor from "../author";
 
 export default interface IBlogPost {
     id: string;
@@ -6,7 +7,7 @@ export default interface IBlogPost {
     last_publication_date: string | null;
     data: {
         title: IPrismicText[];
-        post_author: IPostAuthor;
+        post_author: IAuthor;
         body: IBlogSlice[]
     }
 }
@@ -28,10 +29,6 @@ export interface ISlicePrimary {
 export interface IPrismicText {
     type: string;
     text: string;
-}
-
-export interface IPostAuthor {
-    id: string;
 }
 
 export interface IEmbeddedContent {

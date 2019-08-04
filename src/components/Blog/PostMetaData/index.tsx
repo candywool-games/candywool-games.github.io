@@ -40,7 +40,7 @@ export default class PostMetaData extends Component<IPostMetaDataProps, {}> {
     }
     
     renderAvatar(image: IImage) {
-        if(image.url){
+        if(image && image.url){
             return (
                 <Image 
                     className={styles.avatar} 
