@@ -3,15 +3,19 @@ import React from 'react';
 import SiteLayout from './components/SiteLayout';
 import Home from './components/Home';
 import BlogHome from './components/Blog/BlogHome';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import BlogPost from './components/Blog/BlogPost/index';
+import NotFound from './components/NotFound';
 
 const App: React.FC = () => {
   return (
     <SiteLayout>
-      <Route exact path="/" component={Home}/>
-      <Route exact path="/blog" component={BlogHome}/>
-      <Route path="/blog/posts/:postId" component={BlogPost}/>
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/blog" component={BlogHome}/>
+        <Route path="/blog/posts/:postId" component={BlogPost}/>
+        <Route component={NotFound}/>
+      </Switch>
     </SiteLayout>
   );
 }
