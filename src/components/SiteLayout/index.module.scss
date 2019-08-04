@@ -1,13 +1,31 @@
 @import '../../index.scss';
 
-.contentWrapper {
-    margin: auto;
-    max-width: 900px;
+.content {
+    min-height: 100vh;
+    padding: 0 0 50px;
+    position: relative;
+}
+
+.pageWrapper {
+    margin: 0 auto;
+    max-width: 1000px;
     padding: 15px;
 }
 
-.header {
-    background: $primary;
-    height: 75px;
+.navbar {
     margin-bottom: 25px;
+}
+
+.footer {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom:0;
+  }
+
+.footerText {
+    color: $body-color-secondary;
 }
