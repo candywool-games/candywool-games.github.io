@@ -12,9 +12,6 @@ jobs:
   deploy:
     steps:
       - react/install
-          filters: 
-            branches: 
-              *filter-only-master
       - react/eslint:
           requires:
             - react/install
