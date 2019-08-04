@@ -1,18 +1,14 @@
 orbs:
-  react: "thefrontside/react@0.2.0"
-
-aliases:
- - &filter-only-master
-    branches:
-      only:
-        - master
-
+  react: thefrontside/react@0.2.0
 version: 2.1
-jobs:
-  deploy:
-    steps:
+workflows:
+  push:
+    jobs:
       - react/install
       - react/eslint:
+          requires:
+            - react/install
+      - react/stylelint:
           requires:
             - react/install
       - react/test:
@@ -21,9 +17,3 @@ jobs:
       - react/coverage:
           requires:
             - react/install
-
-workflows:
-  version: 2.1
-  build_and_deploy:
-    jobs:
-      - deploy
