@@ -2,6 +2,7 @@ import IImage from "../image";
 import IAuthor from "../author";
 
 export interface IBlogPostPreview {
+    uid?: string;
     id: string;
     first_publication_date: string | null;
     last_publication_date: string | null;
