@@ -1,14 +1,25 @@
 import IImage from "../image";
+import IAuthor from "../author";
 
-export default interface IBlogPost {
+export interface IBlogPostPreview {
+    uid?: string;
     id: string;
     first_publication_date: string | null;
     last_publication_date: string | null;
-    data: {
-        title: IPrismicText[];
-        post_author: IPostAuthor;
-        body: IBlogSlice[]
-    }
+    data: IBlogPostPreviewData;
+}
+
+export interface IBlogPost extends IBlogPostPreview {
+    data: IBlogPostData;
+}
+
+interface IBlogPostPreviewData {
+    title: IPrismicText[];
+    post_author: IAuthor;
+}
+
+interface IBlogPostData extends IBlogPostPreviewData {
+    body: IBlogSlice[]
 }
 
 export interface IBlogSlice {
@@ -28,10 +39,6 @@ export interface ISlicePrimary {
 export interface IPrismicText {
     type: string;
     text: string;
-}
-
-export interface IPostAuthor {
-    id: string;
 }
 
 export interface IEmbeddedContent {

@@ -1,32 +1,27 @@
 import React, { Component } from 'react';
-import IBlogPost from '../../../models/blog_post';
-import IAuthor from '../../../models/author';
-import BlogPost from '../BlogPost';
-import GetBlogPostsGateway from '../../../gateways/GetBlogPosts';
-import GetAuthorsByIdGateway from '../../../gateways/GetAuthorsById';
+import BlogPostPreview from '../BlogPostPreview';
+import GetBlogPostPreviewsGateway from '../../../gateways/GetBlogPostPreviews';
 import Loading from './../../Loading/index';
 import PageNumbers from '../../PageNumbers/index';
 import NumberDropdown from '../../NumberDropdown';
 import styles from './index.module.scss';
+import { IBlogPostPreview } from './../../../models/blog_post/index';
 
 interface IBlogHomeState {
     isLoading: boolean;
     totalPages: number;
     currentPage: number;
     postsToDisplay: number;
-    blogPosts: IBlogPost[];
-    authors: IAuthor[];
+    blogPosts: IBlogPostPreview[];
 }
 
 export default class BlogHome extends Component<{}, IBlogHomeState> {
-    private readonly getBlogPosts : GetBlogPostsGateway;
-    private readonly getAuthorsById: GetAuthorsByIdGateway;
+    private readonly getBlogPostPreviews : GetBlogPostPreviewsGateway;
 
     constructor(props: {}){
         super(props);
 
-        this.getBlogPosts = new GetBlogPostsGateway();
-        this.getAuthorsById = new GetAuthorsByIdGateway();
+        this.getBlogPostPreviews = new GetBlogPostPreviewsGateway();
 
         this.state = {
             isLoading: true,
@@ -34,26 +29,17 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
             currentPage: 1,
             postsToDisplay: 10,
             blogPosts: [],
-            authors: []
         }
     }
 
     async loadBlogPosts() : Promise<void> {
-        const response = await this.getBlogPosts.Execute(this.state.currentPage, this.state.postsToDisplay);
+        const response = await this.getBlogPostPreviews.Execute(this.state.currentPage, this.state.postsToDisplay);
         const blogPosts = response.results;
-
-        let ids : string[] = [];
-        blogPosts.forEach((post) => {
-            ids.push(post.data.post_author.id);
-        });
-
-        const postAuthors = await this.getAuthorsById.Execute(ids);
 
         this.setState(
             {
                 isLoading: false, 
                 blogPosts: blogPosts, 
-                authors: postAuthors, 
                 totalPages: response.total_pages
             }
         );
@@ -61,17 +47,6 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
 
     async componentDidMount(){
         await this.loadBlogPosts();
-    }
-
-    findMatchingAuthor(blogPost: IBlogPost) : IAuthor {
-        let returnValue = this.state.authors[0];
-        this.state.authors.forEach((author : IAuthor) => {
-            if(blogPost.data.post_author.id === author.id){
-                returnValue = author;
-            }
-        });
-
-        return returnValue;
     }
 
     render() {
@@ -90,10 +65,10 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
         );
     }
 
-    renderBlogPost(post: IBlogPost){
+    renderBlogPost(post: IBlogPostPreview){
         return (
             <div key={post.id}>
-                <BlogPost content={post} author={this.findMatchingAuthor(post)}/>
+                <BlogPostPreview content={post}/>
                 <hr/>
             </div>
         );
