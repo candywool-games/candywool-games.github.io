@@ -1,8 +1,3 @@
-general:
-  branches:
-    only:
-      - develop
-
 version: 2
 jobs:
   deploy-website:
@@ -23,3 +18,6 @@ workflows:
   build_and_deploy:
     jobs:
       - deploy-website
+          filters:
+            branches:
+              only: develop
