@@ -1,8 +1,16 @@
 orbs:
   react: "thefrontside/react@dev:alpha"
+
+aliases:
+ - &filter-only-master
+    branches:
+      only:
+        - master
+
 version: 2.1
 workflows:
   push:
+    filters: *filter-only-master
     jobs:
       - react/install
       - react/eslint:
