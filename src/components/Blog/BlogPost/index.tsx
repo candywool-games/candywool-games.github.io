@@ -8,6 +8,8 @@ import IRouteParams from './../../../models/router/index';
 import Loading from "../../Loading";
 import GetBlogPostByUidGateway from './../../../gateways/GetBlogPostByUid';
 import { Redirect } from "react-router-dom";
+import Disqus from 'disqus-react';
+import { Button } from 'react-bootstrap';
 
 interface IUrlParams {
     postId: string;
@@ -16,10 +18,12 @@ interface IUrlParams {
 interface IBlogPostState {
     loading: boolean;
     blogPost?: IBlogPost;
+    displayComments: boolean;
 }
 
 export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogPostState> {
     readonly getBlogPost : GetBlogPostByUidGateway;
+    readonly disqusShortname = 'candywool-games';
 
     constructor(props: IRouteParams<IUrlParams>){
         super(props);
@@ -27,7 +31,8 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
         this.getBlogPost = new GetBlogPostByUidGateway();
 
         this.state = {
-            loading: true
+            loading: true,
+            displayComments: false
         }
     }
 
@@ -48,12 +53,37 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
             return <Redirect to="/blog"/>;
         }
 
+        const metaData = <PostMetaData publishedDate={blogPost.first_publication_date} author={blogPost.data.post_author}/>;
+
         return (
             <>
                 <h1 className={styles.postTitle}>{RichText.asText(blogPost.data.title)}</h1>
-                <PostMetaData publishedDate={blogPost.first_publication_date} author={blogPost.data.post_author}/>
+                {metaData}
                 { blogPost.data.body.map((slice: IBlogSlice, index: number) => {return (<BlogSlice content={slice} key={index} />)})}
+                {/* Have an about the author section */}
+                <div className="mt-5">
+                    <hr/>
+                    {this.handleComments(blogPost)}
+                </div>
             </>
+        )
+    }
+
+    handleComments(blogPost: IBlogPost) {
+        if(this.state.displayComments){
+            const disqusConfig = {
+                url: "https://candywool-games.github.io" + this.props.location.pathname,
+                identifier: this.props.match.params.postId,
+                title: blogPost.data.title[0].text,
+            };
+                
+            return <Disqus.DiscussionEmbed shortname={this.disqusShortname} config={disqusConfig} />;
+        }
+
+        return (
+            <div className={styles.commentsButton}>
+             <Button onClick={() => {this.setState({displayComments: true})}}>Load Comments</Button>
+            </div>
         )
     }
 }
