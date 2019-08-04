@@ -1,10 +1,10 @@
 import { prismicClient } from '../../utilities/prismic-configuration';
 import Prismic from 'prismic-javascript';
-import IBlogPost from '../../models/blog_post';
+import { IBlogPostPreview } from '../../models/blog_post';
 
 interface IGetBlogPostsResponse {
     total_pages: number;
-    results: IBlogPost[];
+    results: IBlogPostPreview[];
 }
 
 const fetchValues = [

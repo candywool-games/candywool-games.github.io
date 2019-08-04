@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import IBlogPost from '../../../models/blog_post';
-import BlogPost from '../BlogPost';
+import BlogPostPreview from '../BlogPostPreview';
 import GetBlogPostPreviewsGateway from '../../../gateways/GetBlogPostPreviews';
 import Loading from './../../Loading/index';
 import PageNumbers from '../../PageNumbers/index';
 import NumberDropdown from '../../NumberDropdown';
 import styles from './index.module.scss';
+import { IBlogPostPreview } from './../../../models/blog_post/index';
 
 interface IBlogHomeState {
     isLoading: boolean;
     totalPages: number;
     currentPage: number;
     postsToDisplay: number;
-    blogPosts: IBlogPost[];
+    blogPosts: IBlogPostPreview[];
 }
 
 export default class BlogHome extends Component<{}, IBlogHomeState> {
@@ -65,10 +65,10 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
         );
     }
 
-    renderBlogPost(post: IBlogPost){
+    renderBlogPost(post: IBlogPostPreview){
         return (
             <div key={post.id}>
-                <BlogPost content={post}/>
+                <BlogPostPreview content={post}/>
                 <hr/>
             </div>
         );
