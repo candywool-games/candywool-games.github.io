@@ -18,7 +18,7 @@ jobs:
             git config --global user.email "Danielw093@users.noreply.github.com"
             git config --global user.name "Daniel Williams"
             echo "machine github.com login Danielw093 password $GITHUB_TOKEN" > ~/.netrc
-            npm install && npm run predeploy && GIT_USER=Danielw093 npm run deploy
+            yarn install && yarn run predeploy && GIT_USER=Danielw093 yarn run deploy
             # git config --global user.email "Danielw093@users.noreply.github.com"
             # git config --global user.name "Daniel Williams"
             # echo "machine github.com login Danielw093 password $GITHUB_TOKEN" > ~/.netrc
