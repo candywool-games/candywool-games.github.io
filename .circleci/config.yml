@@ -15,15 +15,10 @@ jobs:
       - run:
           name: Deploying to GitHub Pages
           command: |
-            # git config --global user.email "Danielw093@users.noreply.github.com"
-            # git config --global user.name "Daniel Williams"
-            # echo "machine github.com login Danielw093 password $GITHUB_TOKEN" > ~/.netrc
-            # npm install && npm run predeploy && GIT_USER=Danielw093 npm run deploy
-            npm install && npm run predeploy && npm run deploy
-            # git config --global user.email "Danielw093@users.noreply.github.com"
-            # git config --global user.name "Daniel Williams"
-            # echo "machine github.com login Danielw093 password $GITHUB_TOKEN" > ~/.netrc
-            # cd website && yarn install && GIT_USER=Danielw093 yarn run publish-gh-pages
+            git config --global user.email "Danielw093@users.noreply.github.com"
+            git config --global user.name "Daniel Williams"
+            echo "machine github.com login Danielw093 password $GITHUB_TOKEN" > ~/.netrc
+            npm install && npm run predeploy && GIT_USER=Danielw093 npm run deploy
 workflows:
   version: 2
   build_and_deploy:
