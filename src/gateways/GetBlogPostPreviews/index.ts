@@ -9,7 +9,9 @@ interface IGetBlogPostsResponse {
 
 const fetchValues = [
     "blog_post.title",
-    "blog_post.post_author"
+    "blog_post.post_author",
+    "blog_post.featured_image",
+    "blog_post.outline"
 ];
 
 const fetchLinks = [

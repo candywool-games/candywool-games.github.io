@@ -7,10 +7,11 @@ import PostMetaData from "../PostMetaData";
 import IRouteParams from './../../../models/router/index';
 import Loading from "../../Loading";
 import GetBlogPostByUidGateway from './../../../gateways/GetBlogPostByUid';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { DiscussionEmbed } from 'disqus-react';
 import { Button } from 'react-bootstrap';
 import { IDisqusInfo, DisqusInfo } from './../../../utilities/disqus-config';
+import FeaturedImage from "../FeaturedImage";
 
 interface IUrlParams {
     postId: string;
@@ -66,10 +67,14 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
         );
 
         return (
-            <>
+            <>  
+                <Link to="/blog"><Button className={styles.backButton} variant="primary">Back</Button></Link>
+                <FeaturedImage image={blogPost.data.featured_image} />
                 <h1 className={styles.postTitle}>{RichText.asText(blogPost.data.title)}</h1>
                 {metaData}
-                { blogPost.data.body.map((slice: IBlogSlice, index: number) => {return (<BlogSlice content={slice} key={index} />)})}
+                <div className={styles.postWrapper}>
+                    { blogPost.data.body.map((slice: IBlogSlice, index: number) => {return (<BlogSlice content={slice} key={index} />)})}
+                </div>
                 {/* Have an about the author section */}
                 {/* <div className="mt-5">
                     <hr/>

@@ -6,17 +6,20 @@ import BlogHome from './components/Blog/BlogHome';
 import { Route, Switch } from 'react-router-dom';
 import BlogPost from './components/Blog/BlogPost/index';
 import NotFound from './components/NotFound';
+import ScrollRestoration from './components/ScrollRestoration';
 
 const App: React.FC = () => {
   return (
-    <SiteLayout>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route exact path="/blog" component={BlogHome}/>
-        <Route path="/blog/posts/:postId" component={BlogPost}/>
-        <Route component={NotFound}/>
-      </Switch>
-    </SiteLayout>
+    <ScrollRestoration>
+      <SiteLayout>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route exact path="/blog" component={BlogHome}/>
+          <Route path="/blog/posts/:postId" component={BlogPost}/>
+          <Route component={NotFound}/>
+        </Switch>
+      </SiteLayout>
+    </ScrollRestoration>
   );
 }
 

@@ -14,7 +14,9 @@ export interface IBlogPost extends IBlogPostPreview {
 }
 
 interface IBlogPostPreviewData {
+    featured_image: IImage;
     title: IPrismicText[];
+    outline: IPrismicText[];
     post_author: IAuthor;
 }
 
