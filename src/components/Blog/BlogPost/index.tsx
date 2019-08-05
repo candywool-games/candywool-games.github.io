@@ -8,9 +8,10 @@ import IRouteParams from './../../../models/router/index';
 import Loading from "../../Loading";
 import GetBlogPostByUidGateway from './../../../gateways/GetBlogPostByUid';
 import { Redirect } from "react-router-dom";
-import Disqus from 'disqus-react';
+import { DiscussionEmbed } from 'disqus-react';
 import { Button } from 'react-bootstrap';
 import DisqusConfig from '../../../utilities/disqus-config';
+import { IDisqus } from './../../../utilities/disqus-config';
 
 interface IUrlParams {
     postId: string;
@@ -20,6 +21,7 @@ interface IBlogPostState {
     loading: boolean;
     blogPost?: IBlogPost;
     displayComments: boolean;
+    disqusConfig: IDisqus;
 }
 
 export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogPostState> {
@@ -32,7 +34,8 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
 
         this.state = {
             loading: true,
-            displayComments: false
+            displayComments: true,
+            disqusConfig: new DisqusConfig("", "", "")
         }
     }
 
@@ -40,7 +43,10 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
         const blogPostId = this.props.match.params.postId;
         const post = await this.getBlogPost.Execute(blogPostId);
 
-        this.setState({blogPost: post, loading: false})
+        const postTitle : string = RichText.asText(post.data.title);
+        const disqusConfig = new DisqusConfig(this.props.location.pathname, blogPostId, postTitle);
+
+        this.setState({blogPost: post, loading: false, disqusConfig: disqusConfig})
     }
 
     render() {
@@ -63,17 +69,15 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
                 {/* Have an about the author section */}
                 <div className="mt-5">
                     <hr/>
-                    {this.handleComments(blogPost)}
+                    {this.handleComments()}
                 </div>
             </>
         )
     }
 
-    handleComments(blogPost: IBlogPost) {
-        if(this.state.displayComments){
-            const postTitle : string = RichText.asText(blogPost.data.title);
-            const disqusConfig = new DisqusConfig(this.props.location.pathname, this.props.match.params.postId, postTitle);
-            return <Disqus.DiscussionEmbed shortname={disqusConfig.disqusShortName} config={disqusConfig.config} />;
+    handleComments() {
+        if(this.state.displayComments) {
+            return this.getDiscussionThread();
         }
 
         return (
@@ -81,5 +85,13 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
              <Button onClick={() => {this.setState({displayComments: true})}}>Load Comments</Button>
             </div>
         )
+    }
+
+    getDiscussionThread(){
+        return (
+            <DiscussionEmbed 
+                shortname={this.state.disqusConfig.disqusShortName} 
+                config={this.state.disqusConfig.config} />
+        );
     }
 }

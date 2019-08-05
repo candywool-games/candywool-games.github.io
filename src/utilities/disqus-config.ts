@@ -1,6 +1,6 @@
 const disqusShortname = 'candywool-games';
 
-interface IDisqus {
+export interface IDisqus {
     disqusShortName: string;
     config: IDisqusConfig;
 }
