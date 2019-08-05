@@ -1,26 +1,26 @@
 const disqusShortname = 'candywool-games';
 
-export interface IDisqus {
+export interface IDisqusInfo {
     disqusShortName: string;
     config: IDisqusConfig;
 }
 
-interface IDisqusConfig {
-    url: string;
-    identifier: string;
-    title: string;
-}
-
-export default class Disqus implements IDisqus {
+export class DisqusInfo implements IDisqusInfo {
     disqusShortName: string;
     config: IDisqusConfig;
 
     constructor(url: string, identifier: string, title: string){
         this.disqusShortName = disqusShortname;
         this.config = {
-            url: url,
+            url: process.env["REACT_APP_SITE_URL"] + url,
             identifier: identifier,
             title: title
         }
     }
+}
+
+interface IDisqusConfig {
+    url: string;
+    identifier: string;
+    title: string;
 }

@@ -10,8 +10,7 @@ import GetBlogPostByUidGateway from './../../../gateways/GetBlogPostByUid';
 import { Redirect } from "react-router-dom";
 import { DiscussionEmbed } from 'disqus-react';
 import { Button } from 'react-bootstrap';
-import DisqusConfig from '../../../utilities/disqus-config';
-import { IDisqus } from './../../../utilities/disqus-config';
+import { IDisqusInfo, DisqusInfo } from './../../../utilities/disqus-config';
 
 interface IUrlParams {
     postId: string;
@@ -21,7 +20,7 @@ interface IBlogPostState {
     loading: boolean;
     blogPost?: IBlogPost;
     displayComments: boolean;
-    disqusConfig: IDisqus;
+    disqusConfig: IDisqusInfo;
 }
 
 export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogPostState> {
@@ -35,7 +34,7 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
         this.state = {
             loading: true,
             displayComments: true,
-            disqusConfig: new DisqusConfig("", "", "")
+            disqusConfig: new DisqusInfo("", "", "")
         }
     }
 
@@ -44,7 +43,7 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
         const post = await this.getBlogPost.Execute(blogPostId);
 
         const postTitle : string = RichText.asText(post.data.title);
-        const disqusConfig = new DisqusConfig(this.props.location.pathname, blogPostId, postTitle);
+        const disqusConfig = new DisqusInfo(this.props.location.pathname, blogPostId, postTitle);
 
         this.setState({blogPost: post, loading: false, disqusConfig: disqusConfig})
     }
@@ -59,7 +58,12 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
             return <Redirect to="/blog"/>;
         }
 
-        const metaData = <PostMetaData publishedDate={blogPost.first_publication_date} author={blogPost.data.post_author}/>;
+        const metaData = (
+            <PostMetaData 
+                publishedDate={blogPost.first_publication_date} 
+                author={blogPost.data.post_author}
+            />
+        );
 
         return (
             <>
