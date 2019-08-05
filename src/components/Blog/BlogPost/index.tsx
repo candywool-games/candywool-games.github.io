@@ -10,6 +10,7 @@ import GetBlogPostByUidGateway from './../../../gateways/GetBlogPostByUid';
 import { Redirect } from "react-router-dom";
 import Disqus from 'disqus-react';
 import { Button } from 'react-bootstrap';
+import DisqusConfig from '../../../utilities/disqus-config';
 
 interface IUrlParams {
     postId: string;
@@ -23,7 +24,6 @@ interface IBlogPostState {
 
 export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogPostState> {
     readonly getBlogPost : GetBlogPostByUidGateway;
-    readonly disqusShortname = 'candywool-games';
 
     constructor(props: IRouteParams<IUrlParams>){
         super(props);
@@ -71,13 +71,8 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
 
     handleComments(blogPost: IBlogPost) {
         if(this.state.displayComments){
-            const disqusConfig = {
-                url: "https://candywool-games.github.io" + this.props.location.pathname,
-                identifier: this.props.match.params.postId,
-                title: blogPost.data.title[0].text,
-            };
-                
-            return <Disqus.DiscussionEmbed shortname={this.disqusShortname} config={disqusConfig} />;
+            const disqusConfig = new DisqusConfig(this.props.location.pathname, this.props.match.params.postId, blogPost.data.title[0].text);
+            return <Disqus.DiscussionEmbed shortname={disqusConfig.disqusShortName} config={disqusConfig.config} />;
         }
 
         return (
