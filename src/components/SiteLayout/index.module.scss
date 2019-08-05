@@ -29,3 +29,13 @@
 .footerText {
     color: $body-color-secondary;
 }
+
+.scrollButton {
+    background: rgba(255, 255, 255, 0) !important;
+    border: 0 !important;
+    color: $secondary !important;
+
+    :hover {
+        color: $dark;
+    }
+}

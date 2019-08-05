@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styles from './index.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ScrollTop from 'react-scrolltop-button';
 
 export default class SiteLayout extends Component {
     render() {
@@ -12,6 +14,17 @@ export default class SiteLayout extends Component {
                     {this.props.children}
                 </div>
                 {this.renderFooter()}
+                <ScrollTop
+                    className={styles.scrollButton}
+                    breakpoint={20000}
+                    distance={150}
+                    icon={
+                        <FontAwesomeIcon 
+                            icon={['fas', 'chevron-circle-up']} 
+                            size="2x"
+                        />
+                    } 
+                />
             </div>
         )
     }
