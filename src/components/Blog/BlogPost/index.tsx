@@ -71,7 +71,8 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
 
     handleComments(blogPost: IBlogPost) {
         if(this.state.displayComments){
-            const disqusConfig = new DisqusConfig(this.props.location.pathname, this.props.match.params.postId, blogPost.data.title[0].text);
+            const postTitle : string = RichText.asText(blogPost.data.title);
+            const disqusConfig = new DisqusConfig(this.props.location.pathname, this.props.match.params.postId, postTitle);
             return <Disqus.DiscussionEmbed shortname={disqusConfig.disqusShortName} config={disqusConfig.config} />;
         }
 
