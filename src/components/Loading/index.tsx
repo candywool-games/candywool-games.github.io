@@ -6,7 +6,7 @@ export default class Loading extends Component {
     render(){
         return (
             <div className={`d-flex justify-content-center ${styles.margin}`}>
-                <Spinner animation="border" role="status">
+                <Spinner animation="border" role="status" variant="primary">
                     <span className="sr-only">Loading...</span>
                 </Spinner>
             </div>

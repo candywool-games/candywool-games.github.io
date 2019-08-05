@@ -6,9 +6,9 @@ export default class NotFound extends Component {
         return (
             <div className="text-center">
                 <FontAwesomeIcon
-                    size="5x"
+                    size="7x"
                     icon={['far', 'frown']}
-                    className="mb-3"
+                    className="mb-4"
                 />
                 <h1>Page not found</h1>
             </div>

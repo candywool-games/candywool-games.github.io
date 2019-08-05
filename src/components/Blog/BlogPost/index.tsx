@@ -8,6 +8,9 @@ import IRouteParams from './../../../models/router/index';
 import Loading from "../../Loading";
 import GetBlogPostByUidGateway from './../../../gateways/GetBlogPostByUid';
 import { Redirect } from "react-router-dom";
+import { DiscussionEmbed } from 'disqus-react';
+import { Button } from 'react-bootstrap';
+import { IDisqusInfo, DisqusInfo } from './../../../utilities/disqus-config';
 
 interface IUrlParams {
     postId: string;
@@ -16,6 +19,8 @@ interface IUrlParams {
 interface IBlogPostState {
     loading: boolean;
     blogPost?: IBlogPost;
+    displayComments: boolean;
+    disqusConfig: IDisqusInfo;
 }
 
 export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogPostState> {
@@ -27,7 +32,9 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
         this.getBlogPost = new GetBlogPostByUidGateway();
 
         this.state = {
-            loading: true
+            loading: true,
+            displayComments: true,
+            disqusConfig: new DisqusInfo("", "", "")
         }
     }
 
@@ -35,7 +42,10 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
         const blogPostId = this.props.match.params.postId;
         const post = await this.getBlogPost.Execute(blogPostId);
 
-        this.setState({blogPost: post, loading: false})
+        const postTitle : string = RichText.asText(post.data.title);
+        const disqusConfig = new DisqusInfo(this.props.location.pathname, blogPostId, postTitle);
+
+        this.setState({blogPost: post, loading: false, disqusConfig: disqusConfig})
     }
 
     render() {
@@ -48,12 +58,44 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
             return <Redirect to="/blog"/>;
         }
 
+        const metaData = (
+            <PostMetaData 
+                publishedDate={blogPost.first_publication_date} 
+                author={blogPost.data.post_author}
+            />
+        );
+
         return (
             <>
                 <h1 className={styles.postTitle}>{RichText.asText(blogPost.data.title)}</h1>
-                <PostMetaData publishedDate={blogPost.first_publication_date} author={blogPost.data.post_author}/>
+                {metaData}
                 { blogPost.data.body.map((slice: IBlogSlice, index: number) => {return (<BlogSlice content={slice} key={index} />)})}
+                {/* Have an about the author section */}
+                {/* <div className="mt-5">
+                    <hr/>
+                    {this.handleComments()}
+                </div> */}
             </>
         )
+    }
+
+    handleComments() {
+        if(this.state.displayComments) {
+            return this.getDiscussionThread();
+        }
+
+        return (
+            <div className={styles.commentsButton}>
+             <Button onClick={() => {this.setState({displayComments: true})}}>Load Comments</Button>
+            </div>
+        )
+    }
+
+    getDiscussionThread(){
+        return (
+            <DiscussionEmbed 
+                shortname={this.state.disqusConfig.disqusShortName} 
+                config={this.state.disqusConfig.config} />
+        );
     }
 }
