@@ -34,7 +34,7 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
 
         this.state = {
             loading: true,
-            displayComments: true,
+            displayComments: false,
             disqusConfig: new DisqusInfo("", "", "")
         }
     }
@@ -76,10 +76,10 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
                     { blogPost.data.body.map((slice: IBlogSlice, index: number) => {return (<BlogSlice content={slice} key={index} />)})}
                 </div>
                 {/* Have an about the author section */}
-                {/* <div className="mt-5">
+                <div className="mt-5">
                     <hr/>
                     {this.handleComments()}
-                </div> */}
+                </div>
             </>
         )
     }
