@@ -71,10 +71,10 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
                 {metaData}
                 { blogPost.data.body.map((slice: IBlogSlice, index: number) => {return (<BlogSlice content={slice} key={index} />)})}
                 {/* Have an about the author section */}
-                <div className="mt-5">
+                {/* <div className="mt-5">
                     <hr/>
                     {this.handleComments()}
-                </div>
+                </div> */}
             </>
         )
     }
