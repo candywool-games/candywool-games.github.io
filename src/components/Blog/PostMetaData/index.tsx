@@ -5,10 +5,15 @@ import styles from './index.module.scss';
 import dateFormatter from '../../../utilities/date-formatter';
 import IImage from '../../../models/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { CommentCount } from 'disqus-react';
+import { IDisqusInfo } from '../../../utilities/disqus-config';
+import { Link } from 'react-router-dom';
 
 interface IPostMetaDataProps {
     publishedDate: string | null;
     author: IAuthor;
+    disqusConfig?: IDisqusInfo;
+    onClickComments?: () => void;
 }
 
 export default class PostMetaData extends Component<IPostMetaDataProps, {}> {
@@ -34,6 +39,7 @@ export default class PostMetaData extends Component<IPostMetaDataProps, {}> {
                     <span className="d-block d-md-inline">
                         {this.roles.map(this.renderRoleBadge)}
                     </span>
+                    {this.renderCommentCount()}
                 </span>
             </div>
         );
@@ -63,5 +69,23 @@ export default class PostMetaData extends Component<IPostMetaDataProps, {}> {
     
     renderRoleBadge(role: string, index: number) {
         return <Badge key={index} className="mr-1" variant="primary">{role}</Badge>
+    }
+
+    renderCommentCount(){
+        if(!this.props.disqusConfig){
+            return null;
+        }
+
+        return (
+            <>
+                <br/>
+                <Link to={`/blog/posts/${this.props.disqusConfig.config.identifier}#disqus_thread`} onClick={this.props.onClickComments}>
+                    <CommentCount 
+                        shortname={this.props.disqusConfig.disqusShortName} 
+                        config={this.props.disqusConfig.config}
+                    />
+                </Link>
+            </>
+        )
     }
 }
