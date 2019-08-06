@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import BlogSlice from '../BlogSlice';
+import styles from './index.module.scss';
 import { RichText } from "../../../prismic-types";
 import { IBlogPost, IBlogSlice } from "../../../models/blog_post";
-import styles from './index.module.scss';
-import PostMetaData from "../PostMetaData";
 import IRouteParams from './../../../models/router/index';
-import Loading from "../../Loading";
-import GetBlogPostByUidGateway from './../../../gateways/GetBlogPostByUid';
 import { Redirect, Link } from "react-router-dom";
-import { DiscussionEmbed } from 'disqus-react';
 import { Button } from 'react-bootstrap';
 import { IDisqusInfo, DisqusInfo } from './../../../utilities/disqus-config';
+import GetBlogPostByUidGateway from './../../../gateways/GetBlogPostByUid';
+import BlogSlice from '../BlogSlice';
+import PostMetaData from "../PostMetaData";
+import Loading from "../../Loading";
 import FeaturedImage from "../FeaturedImage";
+import CommentsSection from "../CommentsSection";
 
 interface IUrlParams {
     postId: string;
@@ -46,7 +46,17 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
         const postTitle : string = RichText.asText(post.data.title);
         const disqusConfig = new DisqusInfo(this.props.location.pathname, blogPostId, postTitle);
 
-        this.setState({blogPost: post, loading: false, disqusConfig: disqusConfig})
+        this.setState (
+            {
+                blogPost: post, 
+                loading: false, 
+                disqusConfig: disqusConfig, 
+            }
+        );
+    }
+
+    onClickComments = () => {
+        this.setState({displayComments: true});
     }
 
     render() {
@@ -63,12 +73,16 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
             <PostMetaData 
                 publishedDate={blogPost.first_publication_date} 
                 author={blogPost.data.post_author}
+                disqusConfig={this.state.disqusConfig}
+                onClickComments={this.onClickComments}
             />
         );
 
         return (
             <>  
-                <Link to="/blog"><Button className={styles.backButton} variant="primary">Back</Button></Link>
+                <div>
+                    <Link to="/blog"><Button className={styles.backButton} variant="primary">Back</Button></Link>
+                </div>
                 <FeaturedImage image={blogPost.data.featured_image} />
                 <h1 className={styles.postTitle}>{RichText.asText(blogPost.data.title)}</h1>
                 {metaData}
@@ -78,29 +92,12 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
                 {/* Have an about the author section */}
                 <div className="mt-5">
                     <hr/>
-                    {this.handleComments()}
+                    <CommentsSection 
+                        disqusConfig={this.state.disqusConfig} 
+                        history={this.props}
+                        shouldDisplay={this.state.displayComments}/>
                 </div>
             </>
         )
-    }
-
-    handleComments() {
-        if(this.state.displayComments) {
-            return this.getDiscussionThread();
-        }
-
-        return (
-            <div className={styles.commentsButton}>
-             <Button onClick={() => {this.setState({displayComments: true})}}>Load Comments</Button>
-            </div>
-        )
-    }
-
-    getDiscussionThread(){
-        return (
-            <DiscussionEmbed 
-                shortname={this.state.disqusConfig.disqusShortName} 
-                config={this.state.disqusConfig.config} />
-        );
     }
 }
