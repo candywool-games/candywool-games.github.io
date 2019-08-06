@@ -1,3 +1,5 @@
+@import '../../../index.scss';
+
 .metaData {
     align-items: center;
     display: flex;
@@ -19,4 +21,12 @@
 .commentCount {
     display: flex;
     align-items: center;
+}
+
+.commentText {
+    display: inline-block;
+}
+
+.commentIcon {
+    color: $primary;
 }
