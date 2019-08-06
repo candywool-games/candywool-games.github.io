@@ -20,4 +20,4 @@ workflows:
       - deploy-website:
           filters:
             branches:
-              only: deployed 
+              only: deployed
