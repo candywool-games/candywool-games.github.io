@@ -8,11 +8,10 @@ import IRouteParams from './../../../models/router/index';
 import Loading from "../../Loading";
 import GetBlogPostByUidGateway from './../../../gateways/GetBlogPostByUid';
 import { Redirect, Link } from "react-router-dom";
-import { DiscussionEmbed } from 'disqus-react';
 import { Button } from 'react-bootstrap';
 import { IDisqusInfo, DisqusInfo } from './../../../utilities/disqus-config';
 import FeaturedImage from "../FeaturedImage";
-import QueryString from 'query-string';
+import CommentsSection from "../CommentsSection";
 
 interface IUrlParams {
     postId: string;
@@ -21,7 +20,6 @@ interface IUrlParams {
 interface IBlogPostState {
     loading: boolean;
     blogPost?: IBlogPost;
-    displayComments: boolean;
     disqusConfig: IDisqusInfo;
 }
 
@@ -35,15 +33,11 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
 
         this.state = {
             loading: true,
-            displayComments: false,
             disqusConfig: new DisqusInfo("", "", "")
         }
     }
 
     async componentDidMount() {
-        const hashes = QueryString.parse(this.props.location.hash);
-        const displayComments = "disqus_thread" in hashes;
-
         const blogPostId = this.props.match.params.postId;
         const post = await this.getBlogPost.Execute(blogPostId);
 
@@ -55,14 +49,8 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
                 blogPost: post, 
                 loading: false, 
                 disqusConfig: disqusConfig, 
-                displayComments: displayComments
             }
         );
-
-        if(displayComments){
-            const element = document.getElementById("disqus_thread");
-            element && element.scrollIntoView();
-        }
     }
 
     render() {
@@ -94,29 +82,9 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
                 {/* Have an about the author section */}
                 <div className="mt-5">
                     <hr/>
-                    {this.handleComments()}
+                    <CommentsSection disqusConfig={this.state.disqusConfig} history={this.props}/>
                 </div>
             </>
         )
-    }
-
-    handleComments() {
-        if(this.state.displayComments) {
-            return this.getDiscussionThread();
-        }
-
-        return (
-            <div className={styles.commentsButton}>
-             <Button onClick={() => {this.setState({displayComments: true})}}>Load Comments</Button>
-            </div>
-        )
-    }
-
-    getDiscussionThread(){
-        return (
-            <DiscussionEmbed
-                shortname={this.state.disqusConfig.disqusShortName} 
-                config={this.state.disqusConfig.config} />
-        );
     }
 }
