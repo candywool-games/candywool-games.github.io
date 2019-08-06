@@ -74,7 +74,8 @@ export default class PostMetaData extends Component<IPostMetaDataProps, {}> {
     renderCommentCount(){
         return (
             <div className="mt-1">
-                <Link to={`/blog/posts/${this.props.disqusConfig.config.identifier}#disqus_thread`} onClick={this.props.onClickComments}>
+                <Link className={styles.commentCount} to={`/blog/posts/${this.props.disqusConfig.config.identifier}#disqus_thread`} onClick={this.props.onClickComments}>
+                    <FontAwesomeIcon icon={["far", "comment"]} className="mr-1"/>
                     <CommentCount 
                         shortname={this.props.disqusConfig.disqusShortName} 
                         config={this.props.disqusConfig.config}
