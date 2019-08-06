@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 interface IPostMetaDataProps {
     publishedDate: string | null;
     author: IAuthor;
-    disqusConfig?: IDisqusInfo;
+    disqusConfig: IDisqusInfo;
     onClickComments?: () => void;
 }
 
@@ -72,17 +72,15 @@ export default class PostMetaData extends Component<IPostMetaDataProps, {}> {
     }
 
     renderCommentCount(){
-        if(!this.props.disqusConfig){
-            return null;
-        }
-
         return (
             <div className="mt-1">
                 <Link to={`/blog/posts/${this.props.disqusConfig.config.identifier}#disqus_thread`} onClick={this.props.onClickComments}>
                     <CommentCount 
                         shortname={this.props.disqusConfig.disqusShortName} 
                         config={this.props.disqusConfig.config}
-                    />
+                    >
+                        0 Comments
+                    </CommentCount>
                 </Link>
             </div>
         )
