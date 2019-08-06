@@ -77,15 +77,14 @@ export default class PostMetaData extends Component<IPostMetaDataProps, {}> {
         }
 
         return (
-            <>
-                <br/>
+            <div className="mt-1">
                 <Link to={`/blog/posts/${this.props.disqusConfig.config.identifier}#disqus_thread`} onClick={this.props.onClickComments}>
                     <CommentCount 
                         shortname={this.props.disqusConfig.disqusShortName} 
                         config={this.props.disqusConfig.config}
                     />
                 </Link>
-            </>
+            </div>
         )
     }
 }

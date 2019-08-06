@@ -39,12 +39,10 @@ export default class CommentsSection extends Component<ICommentsSectionProps, IC
         }
 
         if(!prevProps.shouldDisplay && !this.state.displayComments) {
-            console.log("Load and scroll");
             this.handleAnchor();
             return;
         }
 
-        console.log("Just scroll, already loaded");
         this.scrollToComments();
     }
 
