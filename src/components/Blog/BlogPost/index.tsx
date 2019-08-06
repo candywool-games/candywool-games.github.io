@@ -12,6 +12,7 @@ import { DiscussionEmbed } from 'disqus-react';
 import { Button } from 'react-bootstrap';
 import { IDisqusInfo, DisqusInfo } from './../../../utilities/disqus-config';
 import FeaturedImage from "../FeaturedImage";
+import QueryString from 'query-string';
 
 interface IUrlParams {
     postId: string;
@@ -40,13 +41,28 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
     }
 
     async componentDidMount() {
+        const hashes = QueryString.parse(this.props.location.hash);
+        const displayComments = "disqus_thread" in hashes;
+
         const blogPostId = this.props.match.params.postId;
         const post = await this.getBlogPost.Execute(blogPostId);
 
         const postTitle : string = RichText.asText(post.data.title);
         const disqusConfig = new DisqusInfo(this.props.location.pathname, blogPostId, postTitle);
 
-        this.setState({blogPost: post, loading: false, disqusConfig: disqusConfig})
+        this.setState (
+            {
+                blogPost: post, 
+                loading: false, 
+                disqusConfig: disqusConfig, 
+                displayComments: displayComments
+            }
+        );
+
+        if(displayComments){
+            const element = document.getElementById("disqus_thread");
+            element && element.scrollIntoView();
+        }
     }
 
     render() {
@@ -98,7 +114,7 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
 
     getDiscussionThread(){
         return (
-            <DiscussionEmbed 
+            <DiscussionEmbed
                 shortname={this.state.disqusConfig.disqusShortName} 
                 config={this.state.disqusConfig.config} />
         );
