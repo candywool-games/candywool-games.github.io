@@ -71,7 +71,7 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
 
         const metaData = (
             <PostMetaData 
-                publishedDate={blogPost.first_publication_date} 
+                publishedDate={blogPost.data.published_date} 
                 author={blogPost.data.post_author}
                 disqusConfig={this.state.disqusConfig}
                 onClickComments={this.onClickComments}

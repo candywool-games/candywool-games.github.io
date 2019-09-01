@@ -40,8 +40,8 @@ export default class BlogPostPreview extends Component<IBlogPostPreviewProps, {}
                     <h2 className={styles.postTitle}>{this.title}</h2>
                 </Link>
                 <PostMetaData 
-                    publishedDate={this.props.content.first_publication_date} 
-                    author={this.props.content.data.post_author}
+                    publishedDate={blogPost.published_date} 
+                    author={blogPost.post_author}
                     disqusConfig={this.disqusConfig}
                 />
                 <div className={styles.outline}>

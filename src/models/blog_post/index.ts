@@ -18,6 +18,7 @@ interface IBlogPostPreviewData {
     title: IPrismicText[];
     outline: IPrismicText[];
     post_author: IAuthor;
+    published_date: string;
 }
 
 interface IBlogPostData extends IBlogPostPreviewData {
