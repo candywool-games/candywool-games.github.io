@@ -31,17 +31,19 @@ export default class SiteLayout extends Component {
 
     renderNavbar() {
         return (
-            <Navbar bg="primary" variant="dark" expand="lg" className={styles.navbar}>
-                <Link to="">
-                    <Navbar.Brand>Candywool Games</Navbar.Brand>
-                </Link>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <NavLink exact to="/blog" className="nav-link">Blog</NavLink>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+            <div className={styles.navbarWrapper}>
+                <Navbar bg="primary" variant="dark" expand="lg" className={styles.navbar}>
+                    <Link to="">
+                        <Navbar.Brand>Candywool Games</Navbar.Brand>
+                    </Link>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            <NavLink exact to="/blog" className="nav-link">Blog</NavLink>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+            </div>
         )
     }
 

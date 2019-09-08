@@ -8,12 +8,18 @@
 
 .pageWrapper {
     margin: 0 auto;
-    max-width: 900px;
+    max-width: $page-width;
     padding: 15px;
 }
 
-.navbar {
+.navbarWrapper {
+    background: $primary;
     margin-bottom: 25px;
+}
+
+.navbar {
+    margin: auto;
+    max-width: $page-width;
 }
 
 .footer {
