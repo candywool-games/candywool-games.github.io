@@ -32,7 +32,7 @@ export default class SiteLayout extends Component {
     renderNavbar() {
         return (
             <div className={styles.navbarWrapper}>
-                <Navbar bg="primary" variant="dark" expand="lg" className={styles.navbar}>
+                <Navbar variant="dark" expand="lg" className={styles.navbar}>
                     <Link to="">
                         <Navbar.Brand>Candywool Games</Navbar.Brand>
                     </Link>
