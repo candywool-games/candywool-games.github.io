@@ -13,7 +13,9 @@
 }
 
 .navbarWrapper {
-    background-image: linear-gradient(to right, $primary , $primary-light);
+    background: $secondary;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, $secondary, $primary);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, $secondary, $primary); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     margin-bottom: 25px;
 }
 
@@ -39,7 +41,7 @@
 .scrollButton {
     background: rgba(255, 255, 255, 0) !important;
     border: 0 !important;
-    color: $secondary !important;
+    color: $dark !important;
 
     :hover {
         color: $dark;

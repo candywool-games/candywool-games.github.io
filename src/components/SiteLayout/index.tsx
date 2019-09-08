@@ -61,7 +61,7 @@ export default class SiteLayout extends Component {
 
     renderFooter() {
         return(
-            <Navbar bg="secondary" className={styles.footer}>
+            <Navbar bg="dark" className={styles.footer}>
                 <div className={styles.footerText}>
                     &copy; Copyright - Candywool Games 2019
                 </div>
