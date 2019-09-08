@@ -40,7 +40,6 @@ export default class SiteLayout extends Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <NavLink exact to="/blog" className="nav-link">Blog</NavLink>
-                            <NavLink exact to="/blog" className="nav-link">Blog</NavLink>
                         </Nav>
                         <Nav>
                             <a href="https://twitter.com/oiseaudev" target="_blank" rel="noopener noreferrer" className={`nav-link ${styles.socialLink}`}>
