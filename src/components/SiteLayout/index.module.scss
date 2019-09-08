@@ -13,14 +13,13 @@
 }
 
 .navbarWrapper {
-    background: $primary;
+    background-image: linear-gradient(to right, $primary , $primary-light);
     margin-bottom: 25px;
 }
 
 .navbar {
     margin: auto;
     max-width: $page-width;
-    height: 75px;
 }
 
 .footer {
