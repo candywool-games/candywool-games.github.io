@@ -2,35 +2,69 @@ import React, { Component } from "react";
 import { CardGroup, Card } from "react-bootstrap";
 import styles from './index.module.scss';
 import { Link } from "react-router-dom";
-import IImage from "../../../models/image";
+import GetFeaturedPostsGateway from "../../../gateways/GetFeaturedPosts";
+import { IFeaturedPostData } from "../../../models/featured_posts";
+import { RichText } from "../../../prismic-types";
 
-export default class FeaturedPosts extends Component {
-    render() {
-        var image = {
-            url: "https://oiseau.cdn.prismic.io/oiseau/0893b0b39ea56ada54e125f50817f92fe954d293_68372ab5d2507209f314f4a4a9674e00792dc905_7b---add-fields.png",
-            alt: "Test",
-            dimensions: {
-                width: 20,
-                height: 20
+interface IFeaturedPostsState {
+    posts?: IPosts;
+}
+
+interface IPosts {
+    post_1: IFeaturedPostData;
+    post_2: IFeaturedPostData;
+    post_3: IFeaturedPostData;
+}
+
+export default class FeaturedPosts extends Component<{}, IFeaturedPostsState> {
+    private readonly getFeaturedPosts : GetFeaturedPostsGateway;
+
+    constructor(props: {}){
+        super(props);
+
+        this.getFeaturedPosts = new GetFeaturedPostsGateway();
+
+        this.state = {}
+    }
+
+    async loadFeaturedPosts() : Promise<void> {
+        const response = await this.getFeaturedPosts.Execute();
+        this.setState({
+            posts: {
+                post_1: response.data.post_1.data,
+                post_2: response.data.post_2.data,
+                post_3: response.data.post_3.data
             }
+        })
+    }
+
+    async componentDidMount() {
+        await this.loadFeaturedPosts();
+    }
+
+    render() {
+        if(!this.state.posts){
+            return null;
         }
+
+        const posts = this.state.posts;
 
         return (
             <CardGroup className={styles.wrapper}>
-                {this.renderCard("", image, "Card title")}
-                {this.renderCard("", image, "Card title")}
-                {this.renderCard("", image, "Card title")}
+                {this.renderCard(posts.post_1)}
+                {this.renderCard(posts.post_2)}
+                {this.renderCard(posts.post_3)}
             </CardGroup>
         );
     }
 
-    renderCard(postUrl: string, image: IImage, postTitle: string){
+    renderCard(post: IFeaturedPostData){
         return (
-            <Card>
-                <Link to={postUrl}>
-                    <Card.Img variant="top" src={image.url} alt={image.alt} />
+            <Card className={styles.card}>
+                <Link to="" className={styles.image}>
+                    <Card.Img src={post.featured_image.url} alt={post.featured_image.alt} className={styles.image}/>
                     <Card.ImgOverlay>
-                        <Card.Title className={styles.title}>{postTitle}</Card.Title>
+                        <Card.Title className={styles.title}>{RichText.asText(post.title)}</Card.Title>
                     </Card.ImgOverlay>
                 </Link>
             </Card>
