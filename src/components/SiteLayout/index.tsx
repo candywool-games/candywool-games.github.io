@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styles from './index.module.scss';
-import { Link, NavLink } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { LinkContainer } from 'react-router-bootstrap';
 import ScrollTop from 'react-scrolltop-button';
 
 export default class SiteLayout extends Component {
@@ -33,13 +33,13 @@ export default class SiteLayout extends Component {
         return (
             <div className={styles.navbarWrapper}>
                 <Navbar variant="dark" expand="lg" className={styles.navbar}>
-                    <Link to="">
+                    <LinkContainer to="">
                         <Navbar.Brand>Candywool Games</Navbar.Brand>
-                    </Link>
+                    </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <NavLink exact to="/blog" className="nav-link">Blog</NavLink>
+                            {this.renderNavLink("/blog", "Blog")}
                         </Nav>
                         <Nav className={styles.socialLinks}>
                             <a href="https://twitter.com/oiseaudev" target="_blank" rel="noopener noreferrer" className="nav-link">
@@ -57,6 +57,14 @@ export default class SiteLayout extends Component {
                 </Navbar>
             </div>
         )
+    }
+
+    renderNavLink(path: string, text: string) {
+        return (
+            <LinkContainer exact to={path}>
+                <Nav.Link>{text}</Nav.Link>
+            </LinkContainer>
+        );
     }
 
     renderFooter() {
