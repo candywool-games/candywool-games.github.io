@@ -12,6 +12,7 @@ import PostMetaData from "../PostMetaData";
 import Loading from "../../Loading";
 import FeaturedImage from "../FeaturedImage";
 import CommentsSection from "../CommentsSection";
+import SocialShare from "../../SocialShare";
 
 interface IUrlParams {
     postId: string;
@@ -78,14 +79,20 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
             />
         );
 
+        const title = RichText.asText(blogPost.data.title);
+
         return (
             <>  
                 <div>
                     <Link to="/blog"><Button className={styles.backButton} variant="primary">Back</Button></Link>
                 </div>
                 <FeaturedImage image={blogPost.data.featured_image} />
-                <h1 className={styles.postTitle}>{RichText.asText(blogPost.data.title)}</h1>
+                <h1 className={styles.postTitle}>{title}</h1>
                 {metaData}
+
+                <SocialShare url={this.state.disqusConfig.config.url} title={title}></SocialShare>
+                <hr/>
+
                 <div className={styles.postWrapper}>
                     { blogPost.data.body.map((slice: IBlogSlice, index: number) => {return (<BlogSlice content={slice} key={index} />)})}
                 </div>

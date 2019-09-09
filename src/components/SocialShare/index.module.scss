@@ -1,0 +1,11 @@
+@import '../../index.scss';
+
+.shareButtons {
+    > div {
+        color: $primary;
+        display:inline-block;
+        margin-left: 15px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+}
