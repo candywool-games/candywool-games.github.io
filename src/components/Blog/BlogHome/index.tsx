@@ -6,6 +6,7 @@ import PageNumbers from '../../PageNumbers/index';
 import NumberDropdown from '../../NumberDropdown';
 import styles from './index.module.scss';
 import { IBlogPostPreview } from './../../../models/blog_post/index';
+import FeaturedPosts from './../FeaturedPosts/index';
 
 interface IBlogHomeState {
     isLoading: boolean;
@@ -58,6 +59,7 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
 
         return (
             <>
+                <FeaturedPosts></FeaturedPosts>
                 {controls}
                 {this.state.blogPosts.map(this.renderBlogPost, this)}
                 {controls}
@@ -103,7 +105,7 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
         const postsPerPage =
             <NumberDropdown 
                 currentSelected={this.state.postsToDisplay} 
-                options={[1, 10, 20, 50, 100]} 
+                options={[10, 20, 50, 100]} 
                 onChange={this.onUpdatePostsPerPage} 
             />
 
