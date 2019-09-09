@@ -51,15 +51,23 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
     }
 
     render() {
+        return (
+            <>
+                <FeaturedPosts></FeaturedPosts>
+                {this.renderPosts()}
+            </>
+        );
+    }
+
+    renderPosts(){
         if(this.state.isLoading){
             return <Loading />
         }
 
         var controls = this.renderControls();
 
-        return (
+        return(
             <>
-                <FeaturedPosts></FeaturedPosts>
                 {controls}
                 {this.state.blogPosts.map(this.renderBlogPost, this)}
                 {controls}
