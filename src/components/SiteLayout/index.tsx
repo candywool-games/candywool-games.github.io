@@ -31,23 +31,37 @@ export default class SiteLayout extends Component {
 
     renderNavbar() {
         return (
-            <Navbar bg="primary" variant="dark" expand="lg" className={styles.navbar}>
-                <Link to="">
-                    <Navbar.Brand>Candywool Games</Navbar.Brand>
-                </Link>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <NavLink exact to="/blog" className="nav-link">Blog</NavLink>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+            <div className={styles.navbarWrapper}>
+                <Navbar variant="dark" expand="lg" className={styles.navbar}>
+                    <Link to="">
+                        <Navbar.Brand>Candywool Games</Navbar.Brand>
+                    </Link>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            <NavLink exact to="/blog" className="nav-link">Blog</NavLink>
+                        </Nav>
+                        <Nav>
+                            <a href="https://twitter.com/oiseaudev" target="_blank" rel="noopener noreferrer" className={`nav-link ${styles.socialLink}`}>
+                                <FontAwesomeIcon
+                                    icon={['fab', 'twitter']}
+                                />
+                            </a>
+                            <a href="mailto:oiseaudev@gmail.com" target="_blank" rel="noopener noreferrer" className={`nav-link ${styles.socialLink}`}>
+                                <FontAwesomeIcon
+                                    icon={['fas', 'envelope']}
+                                />
+                            </a>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+            </div>
         )
     }
 
     renderFooter() {
         return(
-            <Navbar bg="secondary" className={styles.footer}>
+            <Navbar bg="dark" className={styles.footer}>
                 <div className={styles.footerText}>
                     &copy; Copyright - Candywool Games 2019
                 </div>
