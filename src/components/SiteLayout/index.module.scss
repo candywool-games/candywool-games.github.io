@@ -48,6 +48,8 @@
     }
 }
 
-.socialLink {
-    margin-left: 12px;
+.socialLinks {
+    :not(:last-child) { 
+        margin-right: 12px;
+    }
 }

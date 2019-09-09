@@ -41,13 +41,13 @@ export default class SiteLayout extends Component {
                         <Nav className="mr-auto">
                             <NavLink exact to="/blog" className="nav-link">Blog</NavLink>
                         </Nav>
-                        <Nav>
-                            <a href="https://twitter.com/oiseaudev" target="_blank" rel="noopener noreferrer" className={`nav-link ${styles.socialLink}`}>
+                        <Nav className={styles.socialLinks}>
+                            <a href="https://twitter.com/oiseaudev" target="_blank" rel="noopener noreferrer" className="nav-link">
                                 <FontAwesomeIcon
                                     icon={['fab', 'twitter']}
                                 />
                             </a>
-                            <a href="mailto:oiseaudev@gmail.com" target="_blank" rel="noopener noreferrer" className={`nav-link ${styles.socialLink}`}>
+                            <a href="mailto:oiseaudev@gmail.com" target="_blank" rel="noopener noreferrer" className="nav-link">
                                 <FontAwesomeIcon
                                     icon={['fas', 'envelope']}
                                 />
