@@ -12,6 +12,7 @@ export interface IFeaturedPostsData {
 }
 
 export interface IFeaturedPost {
+    uid?: string;
     data: IFeaturedPostData;
 }
 

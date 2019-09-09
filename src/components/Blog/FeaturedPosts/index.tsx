@@ -3,17 +3,17 @@ import { CardGroup, Card } from "react-bootstrap";
 import styles from './index.module.scss';
 import { Link } from "react-router-dom";
 import GetFeaturedPostsGateway from "../../../gateways/GetFeaturedPosts";
-import { IFeaturedPostData } from "../../../models/featured_posts";
 import { RichText } from "../../../prismic-types";
+import { IFeaturedPost } from './../../../models/featured_posts/index';
 
 interface IFeaturedPostsState {
     posts?: IPosts;
 }
 
 interface IPosts {
-    post_1: IFeaturedPostData;
-    post_2: IFeaturedPostData;
-    post_3: IFeaturedPostData;
+    post_1: IFeaturedPost;
+    post_2: IFeaturedPost;
+    post_3: IFeaturedPost;
 }
 
 export default class FeaturedPosts extends Component<{}, IFeaturedPostsState> {
@@ -31,9 +31,9 @@ export default class FeaturedPosts extends Component<{}, IFeaturedPostsState> {
         const response = await this.getFeaturedPosts.Execute();
         this.setState({
             posts: {
-                post_1: response.data.post_1.data,
-                post_2: response.data.post_2.data,
-                post_3: response.data.post_3.data
+                post_1: response.data.post_1,
+                post_2: response.data.post_2,
+                post_3: response.data.post_3
             }
         })
     }
@@ -58,13 +58,13 @@ export default class FeaturedPosts extends Component<{}, IFeaturedPostsState> {
         );
     }
 
-    renderCard(post: IFeaturedPostData){
+    renderCard(post: IFeaturedPost){
         return (
             <Card className={styles.card}>
-                <Link to="" className={styles.image}>
-                    <Card.Img src={post.featured_image.url} alt={post.featured_image.alt} className={styles.image}/>
+                <Link to={`/blog/posts/${post.uid}`} className={styles.image}>
+                    <Card.Img src={post.data.featured_image.url} alt={post.data.featured_image.alt} className={styles.image}/>
                     <Card.ImgOverlay>
-                        <Card.Title className={styles.title}>{RichText.asText(post.title)}</Card.Title>
+                        <Card.Title className={styles.title}>{RichText.asText(post.data.title)}</Card.Title>
                     </Card.ImgOverlay>
                 </Link>
             </Card>
