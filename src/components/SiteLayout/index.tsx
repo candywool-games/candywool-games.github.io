@@ -4,6 +4,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LinkContainer } from 'react-router-bootstrap';
 import ScrollTop from 'react-scrolltop-button';
+import { NavLink } from 'react-router-dom';
 
 export default class SiteLayout extends Component {
     render() {
@@ -39,7 +40,8 @@ export default class SiteLayout extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            {this.renderNavLink("/blog", "Blog")}
+                            {/* <NavLink exact to="/" className="nav-link">Home</NavLink> */}
+                            <NavLink exact to="/blog" className="nav-link">Blog</NavLink>
                         </Nav>
                         <Nav className={styles.socialLinks}>
                             <a href="https://twitter.com/oiseaudev" target="_blank" rel="noopener noreferrer" className="nav-link">
@@ -59,16 +61,8 @@ export default class SiteLayout extends Component {
         )
     }
 
-    renderNavLink(path: string, text: string) {
-        return (
-            <LinkContainer exact to={path}>
-                <Nav.Link>{text}</Nav.Link>
-            </LinkContainer>
-        );
-    }
-
     renderFooter() {
-        return(
+        return (
             <Navbar bg="dark" className={styles.footer}>
                 <div className={styles.footerText}>
                     &copy; Copyright - Candywool Games 2019

@@ -53,6 +53,7 @@ export default class BlogHome extends Component<{}, IBlogHomeState> {
     render() {
         return (
             <>
+                <h4>Featured Posts</h4>
                 <FeaturedPosts></FeaturedPosts>
                 {this.renderPosts()}
             </>
