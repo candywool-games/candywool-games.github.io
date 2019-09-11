@@ -59,6 +59,10 @@ export default class FeaturedPosts extends Component<{}, IFeaturedPostsState> {
     }
 
     renderCard(post: IFeaturedPost){
+        if(!post.uid || !post.data){
+            return null;
+        }
+
         return (
             <Card className={styles.card}>
                 <Link to={`/blog/posts/${post.uid}`} className={styles.image}>
