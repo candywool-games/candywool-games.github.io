@@ -26,7 +26,7 @@ export default class GetBlogPostPreviewsGateway {
         const response = await prismicClient.query(
             Prismic.Predicates.at('document.type', 'blog_post'),
             { 
-                orderings: '[document.first_publication_date desc]',
+                orderings: '[my.blog_post.published_date desc]',
                 pageSize: pageSize,
                 page: page,
                 fetch: fetchValues,
