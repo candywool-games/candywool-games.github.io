@@ -44,6 +44,11 @@ export default class BlogPost extends Component<IRouteParams<IUrlParams>, IBlogP
         const blogPostId = this.props.match.params.postId;
         const post = await this.getBlogPost.Execute(blogPostId);
 
+        if(!post){
+            this.setState({loading: false});
+            return;
+        }
+
         const postTitle : string = RichText.asText(post.data.title);
         const disqusConfig = new DisqusInfo(this.props.location.pathname, blogPostId, postTitle);
 
